@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HTML5 Cheat Sheet (TH) — แท็กและความหมาย</title>
+<style>
+  :root { --bg:#0f172a; --card:#111827; --ink:#e5e7eb; --muted:#9ca3af; --acc:#22d3ee; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto; background: var(--bg); color: var(--ink); line-height:1.6; }
+  header { position:sticky; top:0; background:rgba(17,24,39,.9); backdrop-filter: blur(8px); border-bottom:1px solid #1f2937; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  h1,h2 { margin: 0.6em 0 0.4em; }
+  a { color: var(--acc); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border:1px solid #1f2937; border-radius: 14px; padding: 16px; }
+  .note { color: var(--muted); font-size: 0.95rem; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { border-bottom: 1px solid #1f2937; padding: 8px 10px; vertical-align: top; }
+  th { text-align: left; color: #cbd5e1; }
+  .chip { display:inline-block; padding: 2px 8px; border:1px solid #334155; border-radius:999px; font-size: 12px; color:#cbd5e1; }
+  code,kbd,samp { background:#0b1220; border:1px solid #1f2937; padding:2px 6px; border-radius:6px; }
+  .toc a { display:block; padding:6px 8px; border:1px solid #1f2937; border-radius:10px; background:#0b1220; margin-bottom:6px; }
+  footer { color:#94a3b8; font-size: 12px; padding: 24px 0; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>HTML5 Cheat Sheet (ภาษาไทย)</h1>
+      <div class="note">สรุปแท็ก HTML5 สำคัญเกือบทั้งหมด พร้อมความหมาย ตัวอย่างการใช้งาน และแอตทริบิวต์ที่ควรรู้</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="toc">
+      <h2>สารบัญ</h2>
+      <div class="grid">
+        <a href="#meta">เมทาดาทา & โครงสร้างเอกสาร</a>
+        <a href="#sectioning">โครงสร้างเนื้อหา (Sectioning)</a>
+        <a href="#text">ข้อความ & ลิสต์</a>
+        <a href="#inline">อินไลน์เซมานติก</a>
+        <a href="#edits">การแก้ไขข้อความ</a>
+        <a href="#embed">สื่อและการฝัง</a>
+        <a href="#table">ตารางข้อมูล</a>
+        <a href="#forms">ฟอร์ม</a>
+        <a href="#interactive">อินเทอร์แอกทีฟ & เว็บแอป</a>
+        <a href="#scripting">สคริปต์</a>
+        <a href="#obsolete">แท็กที่เลิกใช้/ควรหลีกเลี่ยง</a>
+        <a href="#globals">แอตทริบิวต์สากล (Global attributes)</a>
+      </div>
+    </section>
+
+    <section id="meta" class="card">
+      <h2>เมทาดาทา & โครงสร้างเอกสาร</h2>
+      <p class="note">แท็กพื้นฐานสำหรับตั้งค่าหน้าเว็บและข้อมูลเบื้องหลัง</p>
+      <table>
+        <thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์ที่พบบ่อย</th></tr></thead>
+        <tbody>
+          <tr><td><code>&lt;html&gt;</code></td><td>เอกสาร HTML ทั้งหมด เป็นรากของหน้าเว็บ</td><td><span class='chip'>Block</span></td><td>lang, dir</td></tr><tr><td><code>&lt;head&gt;</code></td><td>ส่วนข้อมูลเบื้องหลังของเอกสาร เช่น meta, title, link, script</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;body&gt;</code></td><td>ส่วนเนื้อหาที่ผู้ใช้เห็นจริง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;base&gt;</code></td><td>กำหนดฐาน URL และ target เริ่มต้นของลิงก์ทั้งหมด</td><td><span class='chip'>Inline</span></td><td>href, target</td></tr><tr><td><code>&lt;link&gt;</code></td><td>เชื่อมโยงไฟล์ภายนอก เช่น CSS, icon, preload</td><td><span class='chip'>Inline</span></td><td>rel, href, as</td></tr><tr><td><code>&lt;meta&gt;</code></td><td>ข้อมูลเมตา เช่น charset, viewport, description</td><td><span class='chip'>Inline</span></td><td>charset, name, content</td></tr><tr><td><code>&lt;title&gt;</code></td><td>ชื่อหน้าเว็บที่แสดงบนแท็บเบราว์เซอร์</td><td><span class='chip'>Inline</span></td><td></td></tr>
+        </tbody>
+      </table>
+      <details style="margin-top:10px;">
+        <summary>ตัวอย่าง</summary>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="th"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;ตัวอย่าง&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </details>
+    </section>
+
+    <section id="sectioning" class="card">
+      <h2>โครงสร้างเนื้อหา (Sectioning)</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;body&gt;</code></td><td>ส่วนเนื้อหาที่ผู้ใช้เห็นจริง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;header&gt;</code></td><td>ส่วนหัวของหน้า/บทความ มักมีโลโก้ เมนู ชื่อเรื่อง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;nav&gt;</code></td><td>ส่วนของลิงก์นำทางหลัก</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;main&gt;</code></td><td>เนื้อหาหลักของหน้า (มีได้เพียงหนึ่งเดียว)</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;section&gt;</code></td><td>กลุ่มเนื้อหาที่มีหัวเรื่องของตัวเอง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;article&gt;</code></td><td>บทความที่เป็นอิสระ สามารถอ่านเดี่ยว ๆ ได้</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;aside&gt;</code></td><td>ข้อมูลเสริม เช่น แถบด้านข้าง โฆษณา กล่องข้อมูล</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;footer&gt;</code></td><td>ส่วนท้ายของหน้า/บทความ เช่น ลิขสิทธิ์ ลิงก์เพิ่มเติม</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;h1–h6&gt;</code></td><td>หัวข้อระดับ 1 ถึง 6 (ใช้ h1 เพียงครั้งเดียวต่อหน้า)</td><td><span class='chip'>Block</span></td><td>id</td></tr><tr><td><code>&lt;address&gt;</code></td><td>ข้อมูลติดต่อผู้เขียน/องค์กร</td><td><span class='chip'>Block</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="text" class="card">
+      <h2>ข้อความ &amp; ลิสต์</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;p&gt;</code></td><td>ย่อหน้าข้อความ</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;hr&gt;</code></td><td>เส้นแบ่งเนื้อหาเชิงรูปแบบ/การเปลี่ยนบริบท</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;pre&gt;</code></td><td>ข้อความแบบคงรูปแบบ ช่องว่าง/ขึ้นบรรทัดใหม่คงอยู่</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;blockquote&gt;</code></td><td>ยกคำพูดแบบยาวจากแหล่งอื่น</td><td><span class='chip'>Block</span></td><td>cite</td></tr><tr><td><code>&lt;ol&gt;</code></td><td>ลิสต์แบบมีลำดับเลข</td><td><span class='chip'>Block</span></td><td>start, reversed, type</td></tr><tr><td><code>&lt;ul&gt;</code></td><td>ลิสต์แบบไม่มีลำดับ</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;li&gt;</code></td><td>รายการภายใน ol/ul/menu</td><td><span class='chip'>Block/Inline</span></td><td></td></tr><tr><td><code>&lt;dl&gt;</code></td><td>ลิสต์คำอธิบาย (คำศัพท์–คำอธิบาย)</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;dt&gt;</code></td><td>คำศัพท์/หัวข้อใน dl</td><td><span class='chip'>Block/Inline</span></td><td></td></tr><tr><td><code>&lt;dd&gt;</code></td><td>คำอธิบายใน dl</td><td><span class='chip'>Block/Inline</span></td><td></td></tr><tr><td><code>&lt;figure&gt;</code></td><td>กรอบสื่อ/ภาพ/โค้ดที่อ้างถึงในเนื้อหา</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;figcaption&gt;</code></td><td>คำอธิบายของ figure</td><td><span class='chip'>Block</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="inline" class="card">
+      <h2>อินไลน์เซมานติก (Inline semantics)</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;a&gt;</code></td><td>ลิงก์ไปยังหน้า/ส่วนอื่น ๆ</td><td><span class='chip'>Inline</span></td><td>href, target, download</td></tr><tr><td><code>&lt;em&gt;</code></td><td>เน้นด้วยเสียง (emphasis) มักจะแสดงเอียง</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;strong&gt;</code></td><td>เน้นความสำคัญ มักแสดงเป็นตัวหนา</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;small&gt;</code></td><td>ตัวอักษรขนาดเล็ก/หมายเหตุ/ข้อกำชับ</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;s&gt;</code></td><td>ข้อความที่ไม่ถูกต้อง/เลิกใช้แล้ว (ขีดทับ)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;cite&gt;</code></td><td>อ้างอิงชื่อผลงาน/แหล่งที่มา</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;q&gt;</code></td><td>ยกคำพูดสั้น ๆ ในบรรทัด</td><td><span class='chip'>Inline</span></td><td>cite</td></tr><tr><td><code>&lt;dfn&gt;</code></td><td>คำศัพท์ที่กำลังให้คำนิยาม</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;abbr&gt;</code></td><td>ตัวย่อ พร้อมขยายความผ่าน title</td><td><span class='chip'>Inline</span></td><td>title</td></tr><tr><td><code>&lt;time&gt;</code></td><td>เวลา/วันที่ ที่ตีความได้โดยเครื่อง</td><td><span class='chip'>Inline</span></td><td>datetime</td></tr><tr><td><code>&lt;code&gt;</code></td><td>โค้ดคอมพิวเตอร์</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;var&gt;</code></td><td>ตัวแปร</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;samp&gt;</code></td><td>ตัวอย่างผลลัพธ์โปรแกรม</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;kbd&gt;</code></td><td>อินพุตจากคีย์บอร์ด</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;sub&gt;</code></td><td>ตัวห้อย</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;sup&gt;</code></td><td>ตัวยก</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;mark&gt;</code></td><td>ข้อความที่ถูกไฮไลท์</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;span&gt;</code></td><td>ตัวครอบทั่วไปแบบอินไลน์ ใช้กับ CSS/JS</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;br&gt;</code></td><td>ขึ้นบรรทัดใหม่ทันที</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;wbr&gt;</code></td><td>จุดตัดคำที่อนุญาตให้ขึ้นบรรทัดใหม่</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;b&gt;</code></td><td>ตัวหนาเชิงรูปแบบ (ไม่สื่อความสำคัญ)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;i&gt;</code></td><td>ตัวเอียงเชิงรูปแบบ (เสียงหรือชื่อเฉพาะ)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;u&gt;</code></td><td>ขีดเส้นใต้ (ใช้เน้นทางสไตล์หรือชื่อที่สะกดผิด)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;ruby&gt;</code></td><td>กลุ่มคำอ่านกำกับ (ภาษาญี่ปุ่น/จีน)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;rt&gt;</code></td><td>คำอ่านกำกับ (annotation) ภายใน ruby</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;rp&gt;</code></td><td>วงเล็บสำรองเมื่อเบราว์เซอร์ไม่รองรับ ruby</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;bdi&gt;</code></td><td>แยกทิศทางข้อความบางส่วนออกจากบริบท</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;bdo&gt;</code></td><td>บังคับทิศทางข้อความ (ltr/rtl)</td><td><span class='chip'>Inline</span></td><td>dir</td></tr><tr><td><code>&lt;data&gt;</code></td><td>ผูกค่าข้อมูลกับข้อความที่เห็น (เครื่องอ่านได้)</td><td><span class='chip'>Inline</span></td><td>value</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="edits" class="card">
+      <h2>การแก้ไขข้อความ (Edits)</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;ins&gt;</code></td><td>ข้อความที่ถูกเพิ่ม (มักแสดงขีดเส้นใต้)</td><td><span class='chip'>Inline/Block</span></td><td>cite, datetime</td></tr><tr><td><code>&lt;del&gt;</code></td><td>ข้อความที่ถูกลบ (มักขีดทับ)</td><td><span class='chip'>Inline/Block</span></td><td>cite, datetime</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="embed" class="card">
+      <h2>สื่อและการฝัง (Embedded content)</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;figure&gt;</code></td><td>กรอบสื่อ/ภาพ/โค้ดที่อ้างถึงในเนื้อหา</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;figcaption&gt;</code></td><td>คำอธิบายของ figure</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;img&gt;</code></td><td>แทรกรูปภาพ</td><td><span class='chip'>Inline</span></td><td>src, alt, width, height, loading</td></tr><tr><td><code>&lt;iframe&gt;</code></td><td>ฝังหน้าเว็บอื่น/วิดีโอ (เช่น YouTube)</td><td><span class='chip'>Block/Inline</span></td><td>src, allow, loading</td></tr><tr><td><code>&lt;embed&gt;</code></td><td>ฝังสื่อ/ปลั๊กอินทั่วไป</td><td><span class='chip'>Inline</span></td><td>src, type</td></tr><tr><td><code>&lt;object&gt;</code></td><td>ฝังวัตถุหลายชนิด</td><td><span class='chip'>Block/Inline</span></td><td>data, type</td></tr><tr><td><code>&lt;param&gt;</code></td><td>พารามิเตอร์สำหรับ object</td><td><span class='chip'>Inline</span></td><td>name, value</td></tr><tr><td><code>&lt;video&gt;</code></td><td>วิดีโอ</td><td><span class='chip'>Block</span></td><td>src, controls, autoplay, loop, muted, poster</td></tr><tr><td><code>&lt;audio&gt;</code></td><td>เสียง</td><td><span class='chip'>Block</span></td><td>src, controls, autoplay, loop, muted</td></tr><tr><td><code>&lt;source&gt;</code></td><td>แหล่งไฟล์สื่อสำหรับ video/audio/picture</td><td><span class='chip'>Inline</span></td><td>src, type, media</td></tr><tr><td><code>&lt;track&gt;</code></td><td>ซับไตเติล/แทร็กข้อมูลของสื่อ</td><td><span class='chip'>Inline</span></td><td>kind, src, srclang, label, default</td></tr><tr><td><code>&lt;picture&gt;</code></td><td>รูปภาพหลายแหล่ง/หลายขนาดสำหรับ responsive</td><td><span class='chip'>Block/Inline</span></td><td></td></tr><tr><td><code>&lt;map&gt;</code></td><td>กำหนดแผนที่พื้นที่กดได้สำหรับรูป</td><td><span class='chip'>Block/Inline</span></td><td>name</td></tr><tr><td><code>&lt;area&gt;</code></td><td>พื้นที่กดได้ภายใน map</td><td><span class='chip'>Inline</span></td><td>shape, coords, href, alt</td></tr><tr><td><code>&lt;canvas&gt;</code></td><td>ผืนวาดภาพด้วย JavaScript</td><td><span class='chip'>Block/Inline</span></td><td>width, height</td></tr><tr><td><code>&lt;svg&gt;</code></td><td>กราฟิกเวกเตอร์ (inline SVG)</td><td><span class='chip'>Block/Inline</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="table" class="card">
+      <h2>ตารางข้อมูล</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;table&gt;</code></td><td>ตารางข้อมูล</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;caption&gt;</code></td><td>คำอธิบายตาราง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;colgroup&gt;</code></td><td>กลุ่มคอลัมน์ของตาราง</td><td><span class='chip'>Block</span></td><td>span</td></tr><tr><td><code>&lt;col&gt;</code></td><td>กำหนดคุณสมบัติให้คอลัมน์</td><td><span class='chip'>Inline</span></td><td>span</td></tr><tr><td><code>&lt;thead&gt;</code></td><td>ส่วนหัวตาราง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;tbody&gt;</code></td><td>ส่วนเนื้อหาตาราง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;tfoot&gt;</code></td><td>ส่วนท้ายตาราง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;tr&gt;</code></td><td>แถวของตาราง</td><td><span class='chip'>Block</span></td><td></td></tr><tr><td><code>&lt;th&gt;</code></td><td>หัวคอลัมน์/หัวแถว</td><td><span class='chip'>Block/Inline</span></td><td>scope</td></tr><tr><td><code>&lt;td&gt;</code></td><td>เซลล์ข้อมูล</td><td><span class='chip'>Block/Inline</span></td><td>colspan, rowspan</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="forms" class="card">
+      <h2>ฟอร์ม</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;form&gt;</code></td><td>ฟอร์มส่งข้อมูล</td><td><span class='chip'>Block</span></td><td>action, method, autocomplete</td></tr><tr><td><code>&lt;label&gt;</code></td><td>ป้ายกำกับอินพุต คลิกแล้วโฟกัสที่อินพุต</td><td><span class='chip'>Inline</span></td><td>for</td></tr><tr><td><code>&lt;input&gt;</code></td><td>อินพุตอเนกประสงค์ (text, email, date, file ฯลฯ)</td><td><span class='chip'>Inline</span></td><td>type, name, value, placeholder, required</td></tr><tr><td><code>&lt;button&gt;</code></td><td>ปุ่มกด (submit/reset/button)</td><td><span class='chip'>Inline/Block</span></td><td>type, disabled</td></tr><tr><td><code>&lt;select&gt;</code></td><td>กล่องเลือกแบบดรอปดาวน์</td><td><span class='chip'>Inline</span></td><td>name, multiple, required</td></tr><tr><td><code>&lt;datalist&gt;</code></td><td>รายการตัวเลือกให้ input (list)</td><td><span class='chip'>Inline</span></td><td></td></tr><tr><td><code>&lt;optgroup&gt;</code></td><td>กลุ่มของ option ใน select</td><td><span class='chip'>Inline</span></td><td>label</td></tr><tr><td><code>&lt;option&gt;</code></td><td>ตัวเลือกใน select/datalist</td><td><span class='chip'>Inline</span></td><td>value, selected</td></tr><tr><td><code>&lt;textarea&gt;</code></td><td>กล่องข้อความหลายบรรทัด</td><td><span class='chip'>Inline/Block</span></td><td>rows, cols, placeholder, required</td></tr><tr><td><code>&lt;output&gt;</code></td><td>ผลลัพธ์จากการคำนวณของฟอร์ม</td><td><span class='chip'>Inline</span></td><td>for</td></tr><tr><td><code>&lt;progress&gt;</code></td><td>แถบความคืบหน้า</td><td><span class='chip'>Inline/Block</span></td><td>value, max</td></tr><tr><td><code>&lt;meter&gt;</code></td><td>ตัววัดค่าในช่วง (เกจ)</td><td><span class='chip'>Inline</span></td><td>value, min, max, low, high, optimum</td></tr><tr><td><code>&lt;fieldset&gt;</code></td><td>กรอบรวมกลุ่มคอนโทรล</td><td><span class='chip'>Block</span></td><td>disabled, form, name</td></tr><tr><td><code>&lt;legend&gt;</code></td><td>หัวข้อของ fieldset</td><td><span class='chip'>Inline</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="interactive" class="card">
+      <h2>อินเทอร์แอกทีฟ &amp; เว็บแอป</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;details&gt;</code></td><td>บล็อกข้อมูลแบบกาง/พับได้</td><td><span class='chip'>Block</span></td><td>open</td></tr><tr><td><code>&lt;summary&gt;</code></td><td>หัวข้อคลิกเพื่อกาง/พับภายใน details</td><td><span class='chip'>Block/Inline</span></td><td></td></tr><tr><td><code>&lt;dialog&gt;</code></td><td>กล่องโต้ตอบ (ไดอะล็อก/โมดัล)</td><td><span class='chip'>Block</span></td><td>open</td></tr><tr><td><code>&lt;template&gt;</code></td><td>เทมเพลตเนื้อหาที่ไม่แสดงจนกว่าจะถูกใช้ด้วย JS</td><td><span class='chip'>None</span></td><td></td></tr><tr><td><code>&lt;slot&gt;</code></td><td>ช่องวางคอนเทนต์สำหรับ Web Components</td><td><span class='chip'>Inline</span></td><td>name</td></tr><tr><td><code>&lt;script&gt;</code></td><td>สคริปต์ JavaScript</td><td><span class='chip'>Inline/Block</span></td><td>src, type, async, defer, crossorigin</td></tr><tr><td><code>&lt;noscript&gt;</code></td><td>เนื้อหาสำรองเมื่อปิดใช้งาน JS</td><td><span class='chip'>Block/Inline</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="scripting" class="card">
+      <h2>สคริปต์</h2>
+      <table><thead><tr><th>แท็ก</th><th>ความหมาย</th><th>ชนิด</th><th>แอตทริบิวต์</th></tr></thead>
+      <tbody>
+      <tr><td><code>&lt;template&gt;</code></td><td>เทมเพลตเนื้อหาที่ไม่แสดงจนกว่าจะถูกใช้ด้วย JS</td><td><span class='chip'>None</span></td><td></td></tr><tr><td><code>&lt;script&gt;</code></td><td>สคริปต์ JavaScript</td><td><span class='chip'>Inline/Block</span></td><td>src, type, async, defer, crossorigin</td></tr><tr><td><code>&lt;noscript&gt;</code></td><td>เนื้อหาสำรองเมื่อปิดใช้งาน JS</td><td><span class='chip'>Block/Inline</span></td><td></td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="obsolete" class="card">
+      <h2>แท็กที่เลิกใช้/ควรหลีกเลี่ยง</h2>
+      <p class="note">หลีกเลี่ยงการใช้แท็กเหล่านี้และใช้ CSS/วิธีสมัยใหม่แทน</p>
+      <table><thead><tr><th>แท็ก</th><th>สถานะ</th><th>คำแนะนำ</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;center&gt;</code></td><td>เลิกใช้</td><td>ใช้ CSS: <code>text-align:center</code></td></tr>
+        <tr><td><code>&lt;font&gt;</code></td><td>เลิกใช้</td><td>ใช้ CSS: <code>font-family / color / size</code></td></tr>
+        <tr><td><code>&lt;marquee&gt;</code></td><td>เลิกใช้</td><td>ใช้ CSS Animations</td></tr>
+      </tbody>
+      </table>
+    </section>
+
+    <section id="globals" class="card">
+      <h2>แอตทริบิวต์สากล (Global attributes)</h2>
+      <p>ใช้ได้กับแท็กส่วนใหญ่:</p>
+      <ul>
+        <li><code>id</code>: ตัวระบุไม่ซ้ำในหน้า</li>
+        <li><code>class</code>: จัดกลุ่มเพื่อสไตล์/สคริปต์</li>
+        <li><code>style</code>: ใส่ CSS ตรง ๆ</li>
+        <li><code>title</code>: ข้อความเมื่อเอาเมาส์ชี้</li>
+        <li><code>lang</code>, <code>dir</code>: ภาษาและทิศทางข้อความ</li>
+        <li><code>hidden</code>: ซ่อนองค์ประกอบ</li>
+        <li><code>tabindex</code>: ลำดับการโฟกัสด้วยแป้นพิมพ์</li>
+        <li><code>draggable</code>, <code>contenteditable</code>, <code>spellcheck</code>, <code>translate</code></li>
+        <li><code>data-*</code>: เก็บข้อมูลกำหนดเอง</li>
+        <li>เหตุการณ์ (Events): <code>onclick</code>, <code>oninput</code>, ฯลฯ</li>
+        <li>ARIA: <code>role</code>, <code>aria-*</code> เพื่อการเข้าถึง</li>
+      </ul>
+    </section>
+
+    <footer class="wrap">
+      อัปเดตล่าสุดโดยผู้ช่วย • เหมาะสำหรับการสอนและอ้างอิงอย่างย่อ
+    </footer>
+  </main>
+</body>
+</html>
